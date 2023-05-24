@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
                     proxySupport = proxyAvailable;
                   }
 
-                  var result = await controller.evaluateJavascript(source: """
+                  await controller.evaluateJavascript(source: """
 console.log("Pandora Wallet Flutter App")
 
 PandoraPayWalletOptions = {
@@ -88,8 +88,7 @@ PandoraPayWalletOptions = {
     },
 }
                   """);
-                  print(result.runtimeType); // int
-                  print(result); // 2
+
                 },
                 onWebViewCreated: (controller) {
                   webViewController = controller;
