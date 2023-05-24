@@ -19,9 +19,9 @@ List of all devices `flutter devices`
 
 `flutter clean`
 
-# Troubleshooting installing packages
+# Troubleshooting installations
 
-Some countries are blocked by Google. You need a proxy in case your machine can't download the required files.
+Some countries are blocked by Google. You need a proxy in case your machine can't download the required dependencies.
 
 run commands
 ```
