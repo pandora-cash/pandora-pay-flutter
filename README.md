@@ -3,23 +3,23 @@
 Mobile Wallet built using Flutter
 Android Mobile Wallet supports Proxy.
 
-# Installation
+## Installation
 
 `flutter packages get`
 
-# run
+### run
 Deploy `flutter -v -d android_device_id run`
 List of all devices `flutter devices`
 
-## set icon
+### set custom icon
 
 `flutter pub run flutter_launcher_icons:main`
 
-## clean
+### clean
 
 `flutter clean`
 
-# Troubleshooting installations
+## Troubleshooting installations
 
 Some countries are blocked by Google. You need a proxy in case your machine can't download the required dependencies.
 
