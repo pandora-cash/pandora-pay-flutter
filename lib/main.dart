@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                   }
 
                   await controller.evaluateJavascript(source: """
-console.log("Pandora Wallet Flutter App")
+console.log("Pandora Pay Wallet Flutter App")
 
 PandoraPayWalletOptions = {
     intro: {
