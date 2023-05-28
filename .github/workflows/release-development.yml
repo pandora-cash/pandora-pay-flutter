@@ -30,7 +30,20 @@ jobs:
     
       - name: Install dependencies
         run: flutter packages get     
-        
+
+      - name: Download Artifact Wallet Build
+        run: |
+          
+          mkdir -p ./assets
+          mkdir -p ./assets/wallet
+          
+          cd ./assets/wallet
+
+          curl -L  -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://github.com/pandora-cash/PandoraPay-wallet/releases/download/development/wallet-build.zip > wallet-build.zip
+          unzip wallet-build.zip
+          rm wallet-build.zip
+          
+          cd ../../
 
       # run: flutter test
       - run: flutter build apk

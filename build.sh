@@ -11,23 +11,19 @@ echo "Running build"
 
 if [[ "$*" == *wasm* ]]; then
   echo "Build Wasm"
-
-  cd ../go-pandora-pay/ || exit
-  ./scripts/build-wasm.sh main build
-  ./scripts/build-wasm.sh helper build
-
-  cd ../pandora-pay-flutter || exit
+  (cd ../PandoraPay-wallet/; bash build.sh build)  
 fi
 
 
 if [[ "$*" == *wallet* ]]; then
   echo "Build Wallet"
 
-  mkdir ./assets
-  mkdir ./assets/wallet
+  mkdir -p ./assets
+  mkdir -p ./assets/wallet
 
   cd ../PandoraPay-wallet/ || exit
 
+  npm run build-webworker-wasm --skip-zip -- --mode=production
   npm run build-ui --skip-zip -- --mode=production
 
   cp -r ./dist/build/* ../pandora-pay-flutter/assets/wallet
