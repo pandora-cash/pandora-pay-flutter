@@ -46,5 +46,28 @@ jobs:
           cd ../../
 
       # run: flutter test
-      - run: flutter build apk
+      - run: flutter build apk --split-per-abi
       - run: flutter build appbundle
+
+      - name: Upload android artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts-android
+          path: |
+            ./build/app/outputs/apk/release/app-*
+            ./build/app/outputs/bundle/release/app.aab
+          retention-days: 3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "development"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            artifacts/**
