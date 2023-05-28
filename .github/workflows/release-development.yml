@@ -44,6 +44,7 @@ jobs:
 
       # run: flutter test
       - run: flutter build ios --release --no-codesign
+      - run: flutter build ipa --release --no-codesign
 
       - name: Upload android artifacts
         uses: actions/upload-artifact@v3
@@ -51,6 +52,7 @@ jobs:
           name: artifacts-ios
           path: |
             ./build/ios/ipa/*.ipa
+            ./build/ios/iphoneos/Runner.app
           retention-days: 3
 
 
@@ -100,7 +102,7 @@ jobs:
 
 
   pre-release-upload:
-    name: "Release Development Android"
+    name: "Upload release"
     needs: [ pre-release-android, pre-release-ios ]
     runs-on: ubuntu-latest
 
