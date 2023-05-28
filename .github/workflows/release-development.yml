@@ -55,7 +55,7 @@ jobs:
         with:
           name: artifacts-ios1
           #path: ./build/ios/archive/*.xcarchive
-          path: ./build/ios/archive/Runner.xcarchive.zip
+          path: ./build/ios/archive/Runner.xcarchive
           retention-days: 3
 
       - name: Upload ios artifacts2
@@ -63,7 +63,7 @@ jobs:
         with:
           name: artifacts-ios2
           #path: ./build/ios/**.ipa
-          path: ./build/ios/iphoneos/Runner.app.zip
+          path: ./build/ios/iphoneos/Runner.app
           retention-days: 3
 
 
