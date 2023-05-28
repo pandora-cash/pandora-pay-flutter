@@ -46,23 +46,24 @@ jobs:
       - run: flutter build ipa --release --no-codesign
       - run: flutter build ios --release --no-codesign
 
-#      - run: |
-#          cd ./build/ios/iphoneos/
-#          zip -r Runner.app.zip Runner.app
-#          cd ..
+      - run: |        
+          (cd ./build/ios/iphoneos/; zip -r Runner.app.zip Runner.app)
+          (cd ./build/ios/archive/; zip -r Runner.xcarchive.zip Runner.xcarchive)
 
       - name: Upload ios artifacts1
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts-ios
-          path: ./build/ios/archive/*.xcarchive
+          name: artifacts-ios1
+          #path: ./build/ios/archive/*.xcarchive
+          path: ./build/ios/archive/Runner.xcarchive.zip
           retention-days: 3
 
       - name: Upload ios artifacts2
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts-ios
-          path: ./build/ios/**.ipa
+          name: artifacts-ios2
+          #path: ./build/ios/**.ipa
+          path: ./build/ios/iphoneos/Runner.app.zip
           retention-days: 3
 
 
