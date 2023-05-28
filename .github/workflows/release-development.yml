@@ -51,13 +51,18 @@ jobs:
 #          zip -r Runner.app.zip Runner.app
 #          cd ..
 
-      - name: Upload ios artifacts
+      - name: Upload ios artifacts1
         uses: actions/upload-artifact@v3
         with:
           name: artifacts-ios
-          path: |
-            ./build/ios/archive/*.xcarchive
-            ./build/ios/**.ipa
+          path: ./build/ios/archive/*.xcarchive
+          retention-days: 3
+
+      - name: Upload ios artifacts2
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts-ios
+          path: ./build/ios/**.ipa
           retention-days: 3
 
 
