@@ -7,14 +7,13 @@ name: Release Development
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - "*"
 
 jobs:
 
-  pre-release-ios:
-    name: "Release Development iOS"
+  release-ios:
+    name: "Release iOS"
     runs-on: macos-latest
 
     steps:
@@ -46,7 +45,7 @@ jobs:
       - run: flutter build ipa --release --no-codesign
       - run: flutter build ios --release --no-codesign
 
-      - run: |        
+      - run: |
           (cd ./build/ios/iphoneos/; zip -r Runner.app.zip Runner.app)
           (cd ./build/ios/archive/; zip -r Runner.xcarchive.zip Runner.xcarchive)
 
@@ -67,8 +66,8 @@ jobs:
           retention-days: 3
 
 
-  pre-release-android:
-    name: "Release Development Android"
+  release-android:
+    name: "Release Android"
     runs-on: ubuntu-latest
 
     steps:
@@ -80,9 +79,9 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.7'
-    
+
       - name: Install dependencies
-        run: flutter packages get     
+        run: flutter packages get
 
       - name: Download Artifact Wallet Build
         run: |
@@ -112,9 +111,9 @@ jobs:
           retention-days: 3
 
 
-  pre-release-upload:
+  release-upload:
     name: "Upload release"
-    needs: [ pre-release-android, pre-release-ios ]
+    needs: [ release-android, release-ios ]
     runs-on: ubuntu-latest
 
     steps:
@@ -134,8 +133,7 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "development"
-          prerelease: true
+          automatic_release_tag: "latest"
           title: "Development Build"
           files: |
             ./bin/artifacts/**
