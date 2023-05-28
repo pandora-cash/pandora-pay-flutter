@@ -43,7 +43,6 @@ jobs:
           cd ../../
 
       # run: flutter test
-      - run: flutter build ios --release --no-codesign
       - run: flutter build ipa --release --no-codesign
 
       - name: Upload android artifacts
@@ -52,7 +51,6 @@ jobs:
           name: artifacts-ios
           path: |
             ./build/ios/ipa/*.ipa
-            ./build/ios/iphoneos/Runner.app
           retention-days: 3
 
 
