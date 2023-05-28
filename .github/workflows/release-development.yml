@@ -12,13 +12,53 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    name: "Release Development Linux"
-    runs-on: ubuntu-latest
+
+  pre-release-ios:
+    name: "Release Development iOS"
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
-      
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      - name: Install dependencies
+        run: flutter packages get
+
+      - name: Download Artifact Wallet Build
+        run: |
+
+          mkdir -p ./assets
+          mkdir -p ./assets/wallet
+
+          cd ./assets/wallet
+
+          curl -L  -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://github.com/pandora-cash/PandoraPay-wallet/releases/download/development/wallet-build.zip > wallet-build.zip
+          unzip wallet-build.zip
+          rm wallet-build.zip
+
+          cd ../../
+
+      # run: flutter test
+      - run: flutter build ios --release --no-codesign
+
+      - name: Upload android artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts-ios
+          path: |
+            ./build/ios/ipa/*.ipa
+          retention-days: 3
+
+
+  pre-release-android:
+    name: "Release Development Android"
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v2
         with:
@@ -58,10 +98,25 @@ jobs:
             ./build/app/outputs/bundle/release/app*
           retention-days: 3
 
+
+  pre-release-upload:
+    name: "Release Development Android"
+    needs: [ pre-release-android, pre-release-ios ]
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout wallet
+        uses: actions/checkout@v3
+
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          path: artifacts
+          path: bin/artifacts
+
+      - name: Display structure of artifacts
+        run: ls -R
+        working-directory: bin/artifacts
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -70,4 +125,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            artifacts/**
+            ./bin/artifacts/**
