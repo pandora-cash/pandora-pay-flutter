@@ -1,4 +1,4 @@
-# Pandora Pay Mobile Wallet 
+# Pandora Cash Mobile Wallet 
 
 Mobile Wallet built using Flutter
 Android Mobile Wallet supports Proxy.

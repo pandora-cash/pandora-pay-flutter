@@ -50,9 +50,7 @@ class _MyAppState extends State<MyApp> {
         return true;
       },
       child: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text("Pandora Pay wallet"),
-          // ),
+
           body: Column(children: <Widget>[
             Expanded(
               child: InAppWebView(
@@ -73,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                   }
 
                   await controller.evaluateJavascript(source: """
-console.log("Pandora Pay Wallet Flutter App")
+console.log("Pandora Cash Wallet Flutter App")
 
 PandoraPayWalletOptions = {
     intro: {

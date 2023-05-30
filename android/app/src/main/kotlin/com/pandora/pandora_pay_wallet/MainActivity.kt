@@ -1,4 +1,4 @@
-package com.pandora.pandora_pay_wallet
+package com.pandora.pandora_cash_wallet
 
 import io.flutter.embedding.android.FlutterActivity
 
